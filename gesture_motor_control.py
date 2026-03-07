@@ -51,9 +51,9 @@ def main():
         # only send command to ESP32 if gesture has changed since last frame
         if gesture != last_gesture:
             if gesture == "OPEN":
-                ser.write(b"CW\n")
+                ser.write(b"OPEN\n")
             elif gesture == "CLOSED":
-                ser.write(b"CCW\n")
+                ser.write(b"CLOSED\n")
             else:
                 ser.write(b"STOP\n")
             last_gesture = gesture
