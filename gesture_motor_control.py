@@ -16,38 +16,27 @@ GESTURE_COMMANDS = {
     "Open_Palm":   b"OPEN\n",
     "Closed_Fist": b"CLOSE\n",
     "Pointing_Up": b"STOP\n",
-    "Thumb_Up":    b"SPEED_UP\n",
-    "Thumb_Down":  b"SPEED_DOWN\n",
+    "Thumb_Up":    b"UNLOCK\n",
+    "Thumb_Down":  b"LOCK\n",
     "Victory":     b"SET_50\n", # half open
-    "ILoveYou":    b"LOCK\n", # lock
+    "ILoveYou":    b"SPEED_UP\n", 
 }
 
 def main():
-    ser      = serial.Serial(ESP32_PORT, BAUD_RATE, timeout=1) # Open serial connection to ESP32
+    ser = serial.Serial(ESP32_PORT, BAUD_RATE, timeout=1)
     last_gesture = None
-    locked = False
 
     def esp32_callback(gesture):
-        nonlocal last_gesture, locked
-
+        nonlocal last_gesture
         if gesture != last_gesture:
-            if gesture == "ILoveYou":
-                locked = not locked
-                print("LOCKED" if locked else "UNLOCKED")
-                ser.write(b"STOP\n")
-
-            elif not locked:
-                cmd = GESTURE_COMMANDS.get(gesture, b"STOP\n")
+            cmd = GESTURE_COMMANDS.get(gesture)
+            if cmd:
+                print(f"Sending: {cmd.strip()}")
                 ser.write(cmd)
-            
-            elif locked:
-                print("Ignored gesture (locked):", gesture)
-
             last_gesture = gesture
 
+    print("Running. Press q in the camera window to quit.")
     gesture_recognizer(esp32_callback)
-
-    print("Running. q to quit.")
 
     
 

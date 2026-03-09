@@ -26,8 +26,8 @@ def print_result(result, output_image: mp.Image, timestamp_ms: int):
 
 def gesture_recognizer(gesture_callback = None):
     """ Uses GestureRecognizer from MediaPipe """
-    gesture_model = "/Users/nikitasenthil/Documents/Nikita/College/CS188/Final/gesture_recognizer.task"
-    hand_model = "/Users/nikitasenthil/Documents/Nikita/College/CS188/Final/hand_landmarker.task"
+    gesture_model = "/Users/ma/188_proj/gesture_recognizer.task"
+    hand_model = "/Users/ma/188_proj/hand_landmarker.task"
     BaseOptions = mp.tasks.BaseOptions
     VisionRunningMode = mp.tasks.vision.RunningMode
     GestureRecognizer = mp.tasks.vision.GestureRecognizer
@@ -53,7 +53,7 @@ def gesture_recognizer(gesture_callback = None):
  
     # hand and gesture recognizers initialized
     with GestureRecognizer.create_from_options(options) as recognizer, HandLandmarker.create_from_options(hand_options) as hand_detector: 
-        cap = cv2.VideoCapture(1, cv2.CAP_AVFOUNDATION)
+        cap = cv2.VideoCapture(0, cv2.CAP_AVFOUNDATION)
 
         while cap.isOpened():
             ret, frame = cap.read()
