@@ -299,13 +299,13 @@ extern "C" void app_main()
             {
                 printf("Servo: OPEN\n");
                 draw_sad_face();
-                run_servo(160, 800);
+                run_servo(120, 800);
             }
             else if (strstr((char*)buf, "CLOSE"))
             {
                 printf("Servo: CLOSE\n");
                 draw_neutral_face();
-                run_servo(20, 800);
+                run_servo(0, 800);
             }
             else if (strstr((char*)buf, "UNLOCK"))
             {
