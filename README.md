@@ -1,6 +1,6 @@
-# Gesture-Controlled ESP32 Servo & OLED
+# Gesture-Controlled Box
 
-Control a servo motor and OLED display over serial using hand gestures detected via webcam.
+Control a servo motor to open and close a box using hand gestures detected via webcam.
 
 ---
 
@@ -14,15 +14,12 @@ Control a servo motor and OLED display over serial using hand gestures detected 
 
 ## Gesture → Command Mapping
 
-| Gesture       | Serial Command | ESP32 Action             |
-|---------------|----------------|--------------------------|
-| Open Palm     | `OPEN`         | Servo → 120°, sad face   |
-| Closed Fist   | `CLOSE`        | Servo → 0°, neutral face |
-| Pointing Up   | `STOP`         | (reserved / no-op)       |
-| Thumb Up      | `UNLOCK`       | OLED shows unlocked icon |
-| Thumb Down    | `LOCK`         | OLED shows locked icon   |
-| Victory       | `SET_50`       | (reserved / no-op)       |
-| ILoveYou      | `SPEED_UP`     | (reserved / no-op)       |
+| Gesture      | Serial Command | ESP32 Action                                      |
+|--------------|----------------|---------------------------------------------------|
+| Open Palm    | `OPEN`         | Servo → 120° (opens box), sad face on OLED       |
+| Closed Fist  | `CLOSE`        | Servo → 0° (closes box), neutral face on OLED    |
+| Thumb Up     | `UNLOCK`       | OLED shows unlocked icon — other gestures enabled |
+| Thumb Down   | `LOCK`         | OLED shows locked icon — other gestures ignored   |
 
 Commands are only sent when the gesture **changes**. While locked (Thumb Down), all gestures except Thumb Up are ignored.
 
